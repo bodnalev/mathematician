@@ -9,13 +9,48 @@ namespace Mathematician
     {
         static void Main(string[] args)
         {
-            Network n = new Network(new int[] {1, 2, 1});
-            Train(1000, n);
-            Test(10, n);
+            Network n = new Network(new int[] {1, 5, 1});
+            MinimizeError(n, 0.01f, 25);
             Console.ReadLine();
         }
 
+        static void MinimizeError(Network n, float limit, int inLimit)
+        {
+            ContinuousUniform rand = new ContinuousUniform(-2, 2);
+            Vector<float> input, output;
+            float original, network, error;
+            int maxIterations = 100000, currIterations = 0;
+            int currInsideLimit = 0;
+            while (currIterations < maxIterations && currInsideLimit < inLimit)
+            {
+                
+                //Train
+                float f = (float)rand.Sample();
+                input = NumToVec(f);
+                output = NumToVec(FuncApprox(f));
+                n.Train(input, output, 0.05f);
 
+                //Test
+                f = (float)rand.Sample();
+                input = NumToVec(f);
+                output = n.Response(input);
+                original = FuncApprox(f);
+                network = VecToNum(output);
+
+
+                error = Math.Abs(original - network);
+                Console.WriteLine("Error: " + error);
+                if (error < limit)
+                {
+                    currInsideLimit++;
+                }
+                else
+                {
+                    currInsideLimit = 0;
+                }
+                currIterations++;
+            }
+        }
 
         static void Train(int iteration, Network n)
         {
@@ -26,7 +61,7 @@ namespace Mathematician
                 float f =(float) rand.Sample();
                 input = NumToVec(f);
                 output = NumToVec(FuncApprox(f));
-                n.Train(input, output, 0.2f);
+                n.Train(input, output, 0.1f);
             }
         }
 
@@ -42,7 +77,7 @@ namespace Mathematician
                 output = n.Response(input);
                 original = FuncApprox(f);
                 network = VecToNum(output);
-                Console.WriteLine("Error: " + (original - network) + "\t Original: " + original + "\t Network: " + network);
+                Console.WriteLine("Error: " + (original - network) + "  \t Original: " + original + "\t Network: " + network);
             }
         }
 
@@ -58,7 +93,7 @@ namespace Mathematician
 
         static float FuncApprox(float input)
         {
-            return 1 + (float) Math.Sin(input * Math.PI / 4);
+            return (1 + (float) Math.Sin(input * Math.PI / 4))/3;
         }
     }
 }

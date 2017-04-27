@@ -3,8 +3,7 @@ D:\Edu\Programming\mathematician\mathematician\bin\Debug\mathematician.exe
 D:\Edu\Programming\mathematician\mathematician\bin\Debug\mathematician.pdb
 D:\Edu\Programming\mathematician\mathematician\bin\Debug\MathNet.Numerics.dll
 D:\Edu\Programming\mathematician\mathematician\bin\Debug\MathNet.Numerics.xml
-D:\Edu\Programming\mathematician\mathematician\obj\Debug\mathematician.csprojResolveAssemblyReference.cache
 D:\Edu\Programming\mathematician\mathematician\obj\Debug\mathematician.Properties.Resources.resources
-D:\Edu\Programming\mathematician\mathematician\obj\Debug\mathematician.csproj.GenerateResource.Cache
+D:\Edu\Programming\mathematician\mathematician\obj\Debug\Mathematician.csproj.GenerateResource.Cache
 D:\Edu\Programming\mathematician\mathematician\obj\Debug\mathematician.exe
 D:\Edu\Programming\mathematician\mathematician\obj\Debug\mathematician.pdb
