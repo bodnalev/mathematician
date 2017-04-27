@@ -7,8 +7,8 @@
     <ProjectGuid>{C4CCE2FC-E5F8-415E-AA82-B92F3F3F1E03}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>mathematician</RootNamespace>
-    <AssemblyName>mathematician</AssemblyName>
+    <RootNamespace>Mathematician</RootNamespace>
+    <AssemblyName>Mathematician</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
