@@ -1,7 +1,7 @@
 ﻿using System;
 using MathNet.Numerics.LinearAlgebra;
 
-namespace NeuralNetwork
+namespace Mathematician.NeuralNetwork
 {
     class Functions
     {

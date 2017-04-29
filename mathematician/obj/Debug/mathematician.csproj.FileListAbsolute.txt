@@ -7,3 +7,4 @@ D:\Edu\Programming\mathematician\mathematician\obj\Debug\mathematician.Propertie
 D:\Edu\Programming\mathematician\mathematician\obj\Debug\Mathematician.csproj.GenerateResource.Cache
 D:\Edu\Programming\mathematician\mathematician\obj\Debug\mathematician.exe
 D:\Edu\Programming\mathematician\mathematician\obj\Debug\mathematician.pdb
+D:\Edu\Programming\Mathematician\mathematician\obj\Debug\Mathematician.csprojResolveAssemblyReference.cache

@@ -1,7 +1,9 @@
 ﻿using System;
-using NeuralNetwork;
+using Mathematician.NeuralNetwork;
+using Mathematician.MMReader;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.Distributions;
+using System.IO;
 
 namespace Mathematician
 {
@@ -9,8 +11,12 @@ namespace Mathematician
     {
         static void Main(string[] args)
         {
-            Network n = new Network(new int[] {1, 5, 1});
-            MinimizeError(n, 0.01f, 25);
+            string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"\\Dat";
+            MMReduce mmred = new MMReduce(startupPath+"\\set.txt",startupPath);
+            mmred.Process();
+
+            /*Network n = new Network(new int[] {1, 10, 1});
+            MinimizeError(n, 0.02f, 25);*/
             Console.ReadLine();
         }
 
@@ -19,7 +25,7 @@ namespace Mathematician
             ContinuousUniform rand = new ContinuousUniform(-2, 2);
             Vector<float> input, output;
             float original, network, error;
-            int maxIterations = 100000, currIterations = 0;
+            int maxIterations = 100000, currIterations = 1;
             int currInsideLimit = 0;
             while (currIterations < maxIterations && currInsideLimit < inLimit)
             {
@@ -28,7 +34,7 @@ namespace Mathematician
                 float f = (float)rand.Sample();
                 input = NumToVec(f);
                 output = NumToVec(FuncApprox(f));
-                n.Train(input, output, 0.05f);
+                n.Train(input, output, 0.005f+1f/(currIterations));
 
                 //Test
                 f = (float)rand.Sample();
@@ -49,6 +55,10 @@ namespace Mathematician
                     currInsideLimit = 0;
                 }
                 currIterations++;
+            }
+            if (currIterations == maxIterations)
+            {
+                Console.WriteLine("Iterations ran out");
             }
         }
 
@@ -93,7 +103,7 @@ namespace Mathematician
 
         static float FuncApprox(float input)
         {
-            return (1 + (float) Math.Sin(input * Math.PI / 4))/3;
+            return (1 + (float) Math.Sin(input * Math.PI / 8))/3;
         }
     }
 }
