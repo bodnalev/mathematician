@@ -13,7 +13,7 @@ namespace Mathematician
         {
             string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"\\Dat";
             MMReduce mmred = new MMReduce(startupPath+"\\set.txt",startupPath);
-            mmred.Process();
+            mmred.ProcessSents(10000);
 
             /*Network n = new Network(new int[] {1, 10, 1});
             MinimizeError(n, 0.02f, 25);*/

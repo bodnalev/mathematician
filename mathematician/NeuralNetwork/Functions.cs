@@ -56,7 +56,7 @@ namespace Mathematician.NeuralNetwork
         }
 
         /// <summary>
-        /// for a = lsim(n) then da/dn = (1-a)*a, it calculates(1-a)*a for a vector
+        /// For a = lsim(n) then da/dn = (1-a)*a, it calculates(1-a)*a for a vector
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>

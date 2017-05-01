@@ -14,7 +14,60 @@ namespace Mathematician.MMReader
             this.pathDest = pathDest;
         }
 
-        public void Process()
+        public void ProcessSents(int charNumLimit)
+        {
+            try
+            {
+                int charNum = 0;
+                int sentNum = 0;
+
+                StreamReader sr = new StreamReader(pathOriginal);
+                StreamWriter sw = new StreamWriter(pathDest + "\\sent-" + sentNum + ".txt");
+
+                char ch;
+
+                Console.WriteLine("processing started");
+
+                do
+                {
+                    ch = (char)sr.Read();
+                    charNum++;
+
+                    if (sw != null)
+                    {
+                        sw.Write(ch);
+                    }
+                    
+                    if (ch.Equals('$'))
+                    {
+                        ch = (char)sr.Peek();
+                        if (ch.Equals('.'))
+                        {
+                            ch = (char)sr.Read();
+                            sw.Write(ch);
+                            if (sw != null)
+                            {
+                                sw.Close();
+                            }
+                            sw = new StreamWriter(pathDest + "\\sent-"+sentNum+".txt");
+                            sentNum++;
+                        }
+                    }
+                } while (!sr.EndOfStream && charNum < charNumLimit);
+                sr.Close();
+                if (sw != null)
+                {
+                    sw.Close();
+                }
+                Console.WriteLine("Processing of file finished");
+            }
+            catch (Exception e)
+            {
+                Console.Write("Exception: " + e.Message);
+            }
+        }
+
+        public void ProcessBrackets()
         {
             try
             {
