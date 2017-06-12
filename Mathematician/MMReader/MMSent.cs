@@ -8,11 +8,10 @@ namespace Mathematician.MMReader
 {
     class MMSent
     {
-        protected MMItem name;
-        protected List<MMItem> content;
+        public List<MMItem> content;
         public enum MMSentType {ConstantDec, VariableDec, DisjointVarRest,
             FloatingHyp, EssentialHyp, Axiom, TheoremProof}
-        protected MMSentType type;
+        public MMSentType type;
 
     }
 }
