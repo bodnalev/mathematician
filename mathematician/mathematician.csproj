@@ -47,7 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MMReader\MMBlock.cs" />
+    <Compile Include="MMReader\MMItem.cs" />
+    <Compile Include="MMReader\MMReader.cs" />
     <Compile Include="MMReader\MMReduce.cs" />
+    <Compile Include="MMReader\MMSent.cs" />
     <Compile Include="NeuralNetwork\Functions.cs" />
     <Compile Include="NeuralNetwork\Network.cs" />
     <Compile Include="Program.cs" />

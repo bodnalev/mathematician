@@ -3,6 +3,9 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace Mathematician.NeuralNetwork
 {
+    /// <summary>
+    /// Storest the important functions used by the Network class
+    /// </summary>
     class Functions
     {
 

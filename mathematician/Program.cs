@@ -5,19 +5,14 @@ using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.Distributions;
 using System.IO;
 
+
 namespace Mathematician
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"\\Dat";
-            MMReduce mmred = new MMReduce(startupPath+"\\set.txt",startupPath);
-            mmred.ProcessSents(10000);
-
-            /*Network n = new Network(new int[] {1, 10, 1});
-            MinimizeError(n, 0.02f, 25);*/
-            Console.ReadLine();
+            
         }
 
         static void MinimizeError(Network n, float limit, int inLimit)
