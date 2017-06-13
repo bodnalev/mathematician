@@ -47,11 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MMReader\MMBlock.cs" />
-    <Compile Include="MMReader\MMItem.cs" />
-    <Compile Include="MMReader\MMReader.cs" />
-    <Compile Include="MMReader\MMReduce.cs" />
-    <Compile Include="MMReader\MMSent.cs" />
+    <Compile Include="MMVerifier\Extension.cs" />
     <Compile Include="NeuralNetwork\Functions.cs" />
     <Compile Include="NeuralNetwork\Network.cs" />
     <Compile Include="Program.cs" />
@@ -61,6 +57,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="MMVerifier\Axiom.cs" />
+    <Compile Include="MMVerifier\Comment.cs" />
+    <Compile Include="MMVerifier\Distinct.cs" />
+    <Compile Include="MMVerifier\EHyp.cs" />
+    <Compile Include="MMVerifier\FHyp.cs" />
+    <Compile Include="MMVerifier\Frame.cs" />
+    <Compile Include="MMVerifier\FrameStack.cs" />
+    <Compile Include="MMVerifier\Hypothesis.cs" />
+    <Compile Include="MMVerifier\MMFile.cs" />
+    <Compile Include="MMVerifier\MMStatement.cs" />
+    <Compile Include="MMVerifier\SymbolString.cs" />
+    <Compile Include="MMVerifier\Theorem.cs" />
+    <Compile Include="MMVerifier\Verifier.cs" />
+    <Compile Include="MMVerifier\ZIStatement.cs" />
+    <Compile Include="MMVerifier\ZRStatement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

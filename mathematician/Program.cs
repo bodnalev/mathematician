@@ -1,6 +1,5 @@
 ﻿using System;
 using Mathematician.NeuralNetwork;
-using Mathematician.MMReader;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.Distributions;
 using System.IO;
