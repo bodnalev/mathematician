@@ -84,6 +84,7 @@ namespace Mathematician.MMVerifier
         //int lineNbr, colNbr;
         void Read(TokenReader r)
         {
+            Verifier verif = new Verifier();
             fs.Push();
             string label = null;
             SymbolString stat = null;
@@ -145,6 +146,10 @@ namespace Mathematician.MMVerifier
                         throw new Exception();
                     Statements.Add(t);
                     label = null;
+
+                    //added
+                    verif.Verify(t);
+
                 }
                 else if (tok == "$d")
                 {

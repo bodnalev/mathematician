@@ -2,8 +2,8 @@
 using Mathematician.NeuralNetwork;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.Distributions;
-using System.IO;
-
+using System.Diagnostics;
+using Mathematician.MMVerifier;
 
 namespace Mathematician
 {
@@ -11,7 +11,16 @@ namespace Mathematician
     {
         static void Main(string[] args)
         {
-            
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            try
+            {
+                MMFile.FromFile("D:\\Edu\\Programming\\Mathematician\\Mathematician\\set.txt");
+            }
+            catch (Exception e) { };
+            sw.Stop();
+            Console.WriteLine("delta time: "+sw.Elapsed);
+            Console.Read();
         }
 
         static void MinimizeError(Network n, float limit, int inLimit)

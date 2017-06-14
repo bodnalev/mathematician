@@ -111,6 +111,9 @@ namespace Mathematician.MMVerifier
                 throw new Exception("Stack has more than one item at end of proof.");
             if (!Stack.Peek().SequenceEqual(th.Result))
                 throw new Exception("Assertion proved doesn't match.");
+
+            //added
+            Console.WriteLine("Proved: " + th.Name);
         }
     }
 }
