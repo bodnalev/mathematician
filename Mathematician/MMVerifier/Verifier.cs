@@ -14,6 +14,8 @@ namespace Mathematician.MMVerifier
     {
         Dictionary<string, MMStatement> labels = new Dictionary<string, MMStatement>();
         string[] labelRequired = new string[] { "$a", "$e", "$f", "$p" };
+
+
         List<string> ApplySubst(IEnumerable<string> stat, Dictionary<string, List<string>> subst)
         {
             var res = new List<string>();
@@ -26,6 +28,8 @@ namespace Mathematician.MMVerifier
             }
             return res;
         }
+
+
         List<string> FindVars(List<string> stat, Theorem th)
         {
             List<string> vars = new List<string>();
@@ -35,8 +39,10 @@ namespace Mathematician.MMVerifier
             return vars;
         }
 
+
         Stack<List<string>> Stack;
         Dictionary<string, List<string>> Subst;
+
 
         public void Verify(Theorem th)
         {
@@ -91,6 +97,7 @@ namespace Mathematician.MMVerifier
                                 if (gam == delt)
                                     throw new Exception("Disjoint violation for " + d.X + ", " + d.Y + "(" + gam + ")");
                     }
+
                     foreach (Hypothesis h in s.Hypotheses.OfType<EHyp>())
                     {
                         var entry = hyps.Pop();
@@ -100,8 +107,11 @@ namespace Mathematician.MMVerifier
                             throw new Exception("$e hypothesis doesn't match stack.");
                         }
                     }
+
                     for (int i = 0; i < popCount; i++) Stack.Pop();
+
                     Stack.Push(ApplySubst(s.Result, subst));
+
                     Subst = null;
                 }
             }
@@ -111,9 +121,23 @@ namespace Mathematician.MMVerifier
                 throw new Exception("Stack has more than one item at end of proof.");
             if (!Stack.Peek().SequenceEqual(th.Result))
                 throw new Exception("Assertion proved doesn't match.");
-
-            //added
-            Console.WriteLine("Proved: " + th.Name);
         }
+
+
+        public bool checkProof(Theorem th)
+        {
+            try
+            {
+                Verify(th);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            Console.WriteLine("Verified: " + th.Name);
+            return true;
+        }
+
     }
 }

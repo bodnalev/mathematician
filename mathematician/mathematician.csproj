@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MMVerifier\Extension.cs" />
+    <Compile Include="MMVerifier\MMProver.cs" />
     <Compile Include="NeuralNetwork\Functions.cs" />
     <Compile Include="NeuralNetwork\Network.cs" />
     <Compile Include="Program.cs" />

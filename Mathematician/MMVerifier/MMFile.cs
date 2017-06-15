@@ -13,43 +13,34 @@ namespace Mathematician.MMVerifier
 {
     public class MMFile
     {
-        class TokenReader
-        {
-            StreamReader lines;
-            public TokenReader(StreamReader lines)
-            {
-                this.lines = lines;
-                buffer = new Queue<string>();
-            }
-            Queue<string> buffer;
-            public string ReadToken()
-            {
-                while (buffer.Count == 0)
-                {
-                    string line = lines.ReadLine();
-                    if (line == null) return null;
-                    foreach (string s in line.Split()) buffer.Enqueue(s);
-                }
-                return buffer.Dequeue();
-            }
-        }
+        //constructors
         public static MMFile FromFile(string file)
         {
             using (StreamReader r = new StreamReader(file))
                 return FromStreamReader(r);
         }
+
         public static MMFile FromStream(Stream stream)
         {
             return FromStreamReader(new StreamReader(stream));
         }
+
         public static MMFile FromStreamReader(StreamReader streamReader)
         {
             TokenReader r = new TokenReader(streamReader);
             MMFile f = new MMFile();
-            f.Read(r);
+            f.Read(r, true);
             return f;
         }
-        string ReadC(TokenReader r)
+
+
+        //list of statements we can use
+        public List<MMStatement> Statements = new List<MMStatement>();
+        //collection of frames
+        protected FrameStack fs = new FrameStack();
+
+        //file processing (removes comments)
+        protected string ReadC(TokenReader r)
         {
             while (true)
             {
@@ -66,7 +57,9 @@ namespace Mathematician.MMVerifier
                     return tok;
             }
         }
-        SymbolString ReadStat(TokenReader r)
+        
+        //file processing (gives statements)
+        protected SymbolString ReadStat(TokenReader r)
         {
             SymbolString ret = new SymbolString();
             while (true)
@@ -80,9 +73,9 @@ namespace Mathematician.MMVerifier
             }
             return ret;
         }
-        FrameStack fs = new FrameStack();
-        //int lineNbr, colNbr;
-        void Read(TokenReader r)
+
+        //reads the file, optionally checks the proofs
+        protected void Read(TokenReader r, bool checkProofs)
         {
             Verifier verif = new Verifier();
             fs.Push();
@@ -135,7 +128,7 @@ namespace Mathematician.MMVerifier
                     Theorem t = new Theorem { Name = label, Result = new SymbolString(result) };
                     fs.AddP(label, t);
                     if (proofString.First() == "(")
-                    { //compressed proof
+                    {
                         t.Proof = UncompressProof(fs, t, proofString).ToList();
                     }
                     else
@@ -144,19 +137,25 @@ namespace Mathematician.MMVerifier
                     }
                     if (t.Proof.Count(n => n is Axiom && ((Axiom)n).Hypotheses == null) > 0)
                         throw new Exception();
+
+                    if (checkProofs)
+                    {
+                        if (!verif.checkProof(t))
+                        {
+                            Console.WriteLine("Incorrect proof");
+                            Console.Read();
+                        }
+                    }
+
                     Statements.Add(t);
                     label = null;
-
-                    //added
-                    verif.Verify(t);
-
                 }
                 else if (tok == "$d")
                 {
                     stat = ReadStat(r);
                     fs.AddD(stat);
                 }
-                else if (tok == "${") Read(r);
+                else if (tok == "${") Read(r, checkProofs);
                 else if (tok[0] != '$')
                 {
                     label = tok;
@@ -168,14 +167,17 @@ namespace Mathematician.MMVerifier
             fs.Pop();
         }
 
-        private IEnumerable<MMStatement> GetStatements(FrameStack fs, IEnumerable<string> proofString)
+        //proof processing (transforms proofs into a statement list)
+        protected IEnumerable<MMStatement> GetStatements(FrameStack fs, IEnumerable<string> proofString)
         {
             List<MMStatement> stats = new List<MMStatement>();
             foreach (string s in proofString)
                 stats.Add(fs.LookupStatement(s));
             return stats;
         }
-        IEnumerable<MMStatement> UncompressProof(FrameStack fs, Theorem th, IEnumerable<string> proof)
+
+        //proof processing (for compressed proofs)
+        protected IEnumerable<MMStatement> UncompressProof(FrameStack fs, Theorem th, IEnumerable<string> proof)
         {
             var ints = UncompressProofNumbers(proof);
 
@@ -218,7 +220,8 @@ namespace Mathematician.MMVerifier
             }
             return ret;
         }
-        List<int> UncompressProofNumbers(IEnumerable<string> proof)
+        
+        protected List<int> UncompressProofNumbers(IEnumerable<string> proof)
         {
             var it = proof.GetEnumerator();
             it.MoveNext();
@@ -257,6 +260,28 @@ namespace Mathematician.MMVerifier
             return ret;
         }
 
-        public List<MMStatement> Statements = new List<MMStatement>();
+
+
+        //helper class for stream handling
+        protected class TokenReader
+        {
+            StreamReader lines;
+            public TokenReader(StreamReader lines)
+            {
+                this.lines = lines;
+                buffer = new Queue<string>();
+            }
+            Queue<string> buffer;
+            public string ReadToken()
+            {
+                while (buffer.Count == 0)
+                {
+                    string line = lines.ReadLine();
+                    if (line == null) return null;
+                    foreach (string s in line.Split()) buffer.Enqueue(s);
+                }
+                return buffer.Dequeue();
+            }
+        }
     }
 }
